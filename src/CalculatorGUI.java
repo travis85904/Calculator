@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class CalculatorGUI {
+
     Calculator calculator = new Calculator();
     String operation = "null";
     double firstNumber;
