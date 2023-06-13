@@ -1,5 +1,10 @@
+//TO-DO
+//Add key listeners for operator buttons
+
+
+
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Arrays;
 
 public class CalculatorGUI {
@@ -9,6 +14,7 @@ public class CalculatorGUI {
     double firstNumber;
     double secondNumber;
     JFrame window = new JFrame();
+
     JTextArea numberBox = new JTextArea();
     JButton equals = new JButton("=");
     JButton multiply = new JButton("*");
@@ -57,6 +63,8 @@ public class CalculatorGUI {
         nine.setBounds(160, 200, 50, 50);
 
 
+
+
         for (JButton jButton : Arrays.asList(zero, one, two, three, four, five, six, seven, eight, nine, divide, equals, multiply, add, subtract, decimal)) {
             window.add(jButton);
         }
@@ -65,6 +73,8 @@ public class CalculatorGUI {
         window.setSize(300, 500);
         window.setLayout(null);
         window.setVisible(true);
+        window.setDefaultCloseOperation(3);
+
     }
 
 
@@ -153,10 +163,12 @@ public class CalculatorGUI {
         eight.addActionListener(eightButtonListener);
         nine.addActionListener(nineButtonListener);
         multiply.addActionListener(multiplyButtonListener);
+
         add.addActionListener(addButtonListener);
         subtract.addActionListener(subtractButtonListener);
         divide.addActionListener(divideButtonListener);
         equals.addActionListener(equalsButtonListener);
+
     }
 
 
