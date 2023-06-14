@@ -1,8 +1,3 @@
-//TO-DO
-//Fix issue: JFrame doesn't stay in focus
-//temp workaround by requesting JFram focus after
-//some ActionListener's
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Arrays;
@@ -114,6 +109,7 @@ public class CalculatorGUI {
         //add the buttons to the panel
         for (JButton jButton : Arrays.asList(zero, one, two, three, four, five, six, seven, eight, nine, divide, equals, multiply, add, subtract, decimal, clearEntry, clear)) {
             frame.add(jButton);
+            jButton.setFocusable(false);
         }
     }
 
@@ -134,13 +130,9 @@ public class CalculatorGUI {
             textArea.setText(null);
             firstNumber = 0;
             secondNumber = 0;
-            frame.requestFocus();
         });
         //clear entry listener
-        clearEntry.addActionListener(e -> {
-            textArea.setText(null);
-            frame.requestFocus();
-        });
+        clearEntry.addActionListener(e -> textArea.setText(null));
 
         //operator button listeners
         ActionListener multiplyButtonListener = e -> {
@@ -169,45 +161,37 @@ public class CalculatorGUI {
                     secondNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
                     operation = "multiplied";
-                    frame.requestFocus();
                 }
                 case "add" -> {
                     secondNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
                     operation = "added";
-                    frame.requestFocus();
                 }
                 case "subtract" -> {
                     secondNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
                     operation = "subtracted";
-                    frame.requestFocus();
                 }
                 case "divide" -> {
                     secondNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
                     operation = "divided";
-                    frame.requestFocus();
                 }
                 case "multiplied" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
-                    frame.requestFocus();
                 }
                 case "added" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
-                    frame.requestFocus();
                 }
                 case "subtracted" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
-                    frame.requestFocus();
                 }
                 case "divided" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
-                    frame.requestFocus();
                 }
             }
         };
