@@ -157,42 +157,37 @@ public class CalculatorGUI {
         };
         ActionListener equalsButtonListener = e -> {
             switch (operation) {
-                case "multiply" -> {
+                case "multiply", "add", "subtract", "divide" -> {
                     secondNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
-                    operation = "multiplied";
+
+                    switch (operation) {
+                        case "multiply" ->
+                                textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
+                        case "add" -> textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
+                        case "subtract" ->
+                                textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
+                        case "divide" ->
+                                textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
+                    }
+                    operation += "Again";
                 }
-                case "add" -> {
-                    secondNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
-                    operation = "added";
-                }
-                case "subtract" -> {
-                    secondNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
-                    operation = "subtracted";
-                }
-                case "divide" -> {
-                    secondNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
-                    operation = "divided";
-                }
-                case "multiplied" -> {
+                case "multiplyAgain" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
                 }
-                case "added" -> {
+                case "addAgain" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
                 }
-                case "subtracted" -> {
+                case "subtractAgain" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
                 }
-                case "divided" -> {
+                case "divideAgain" -> {
                     firstNumber = Double.parseDouble(textArea.getText());
                     textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
                 }
+
             }
         };
 
