@@ -209,31 +209,13 @@ public class CalculatorGUI {
         public void keyPressed(KeyEvent e) {
             char c = e.getKeyChar();
             switch (c) {
-                case 43 -> {
-                    add.doClick();
-                    e.consume();
-                }
-                case 45 -> {
-                    subtract.doClick();
-                    e.consume();
-                }
-                case 47 -> {
-                    divide.doClick();
-                    e.consume();
-                }
-                case 42 -> {
-                    multiply.doClick();
-                    e.consume();
-                }
-                case 10 -> {
-                    equals.doClick();
-                    e.consume();
-                }
+                case 43 -> add.doClick();
+                case 45 -> subtract.doClick();
+                case 47 -> divide.doClick();
+                case 42 -> multiply.doClick();
+                case 10 -> equals.doClick();
                 case 48 -> zero.doClick();
-                case 49 -> {
-                    one.doClick();
-                    e.consume();
-                }
+                case 49 -> one.doClick();
                 case 50 -> two.doClick();
                 case 51 -> three.doClick();
                 case 52 -> four.doClick();
