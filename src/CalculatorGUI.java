@@ -199,6 +199,7 @@ public class CalculatorGUI {
         equals.addActionListener(equalsButtonListener);
     }
 
+    //key handler for keyboard presses
     class frameKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
