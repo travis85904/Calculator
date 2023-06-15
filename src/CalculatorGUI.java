@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Arrays;
 
 public class CalculatorGUI {
 
@@ -12,36 +11,34 @@ public class CalculatorGUI {
     JFrame frame = new JFrame();
     JTextField textArea = new JTextField();
 
-    JButton clearButton = new JButton("C");
-    JButton clearEntryButton = new JButton("CE");
-    JButton equalsButton = new JButton("=");
-    JButton multiplyButton = new JButton("*");
-    JButton addButton = new JButton("+");
-    JButton subtractButton = new JButton("-");
-    JButton divideButton = new JButton("/");
-    JButton negativeButton = new JButton("+/-");
-    JButton modButton = new JButton("%");
+    JButton clearButton = createButton("C", 100, 140);
+    JButton clearEntryButton = createButton("CE", 40, 140);
+    JButton equalsButton = createButton("=", 220, 380);
+    JButton multiplyButton = createButton("*", 220, 200);
+    JButton addButton = createButton("+", 220, 320);
+    JButton subtractButton = createButton("-", 220, 260);
+    JButton divideButton = createButton("/", 220, 140);
+    JButton negativeButton = createButton("+/-", 40, 380);
+    JButton modButton = createButton("%", 160, 140);
 
-
-    JButton decimal = new JButton(".");
-    JButton zero = new JButton("0");
-    JButton one = new JButton("1");
-    JButton two = new JButton("2");
-    JButton three = new JButton("3");
-    JButton four = new JButton("4");
-    JButton five = new JButton("5");
-    JButton six = new JButton("6");
-    JButton seven = new JButton("7");
-    JButton eight = new JButton("8");
-    JButton nine = new JButton("9");
+    JButton decimal = createButton(".", 160, 380);
+    JButton zero = createButton("0", 100, 380);
+    JButton one = createButton("1", 40, 320);
+    JButton two = createButton("2", 100, 320);
+    JButton three = createButton("3", 160, 320);
+    JButton four = createButton("4", 40, 260);
+    JButton five = createButton("5", 100, 260);
+    JButton six = createButton("6", 160, 260);
+    JButton seven = createButton("7", 40, 200);
+    JButton eight = createButton("8", 100, 200);
+    JButton nine = createButton("9", 160, 200);
 
     public CalculatorGUI() {
         setupGUI();
-        setupButtons();
+       // setupButtons();
         setupButtonListeners();
         textArea.setEditable(false);
     }
-
     public void setupGUI() {
         frame.setTitle("Trav's Cool Calculator");
         frame.add(textArea);
@@ -53,76 +50,15 @@ public class CalculatorGUI {
         frame.requestFocus();
         frame.addKeyListener(new frameKeyListener());
         textArea.setBounds(50, 20, 200, 50);
+        textArea.setFocusable(false);
     }
-
-    public void setupButtons() {
-        //Clear button
-        clearButton.setBounds(100, 140, 50, 50);
-
-        //CE button
-        clearEntryButton.setBounds(40, 140, 50, 50);
-
-        //equals button
-        equalsButton.setBounds(220, 380, 50, 50);
-
-        //multiply button
-        multiplyButton.setBounds(220, 200, 50, 50);
-
-        //add button
-        addButton.setBounds(220, 320, 50, 50);
-
-        //subtract button
-        subtractButton.setBounds(220, 260, 50, 50);
-
-        //divide button
-        divideButton.setBounds(220, 140, 50, 50);
-
-        //negative button
-        negativeButton.setBounds(40, 380, 50, 50);
-
-        //mod button
-        modButton.setBounds(160, 140, 50, 50);
-
-        //decimal button
-        decimal.setBounds(160, 380, 50, 50);
-
-        //zero button
-        zero.setBounds(100, 380, 50, 50);
-
-        //one button
-        one.setBounds(40, 320, 50, 50);
-
-        //two button
-        two.setBounds(100, 320, 50, 50);
-
-        //three button
-        three.setBounds(160, 320, 50, 50);
-
-        //four button
-        four.setBounds(40, 260, 50, 50);
-
-        //five button
-        five.setBounds(100, 260, 50, 50);
-
-        //six button
-        six.setBounds(160, 260, 50, 50);
-
-        //seven button
-        seven.setBounds(40, 200, 50, 50);
-
-        //eight button
-        eight.setBounds(100, 200, 50, 50);
-
-        //nine button
-        nine.setBounds(160, 200, 50, 50);
-
-        //add the buttons to the panel
-        for (JButton jButton : Arrays.asList(zero, one, two, three, four, five, six, seven, eight, nine, divideButton, equalsButton, multiplyButton, addButton, subtractButton, decimal, clearEntryButton, clearButton, negativeButton, modButton)) {
-            frame.add(jButton);
-            jButton.setFocusable(false);
-        }
+    private JButton createButton(String text, int x, int y) {
+        JButton button = new JButton(text);
+        button.setBounds(x, y, 50, 50);
+        frame.add(button);
+        button.setFocusable(false);
+        return button;
     }
-
     public void setupButtonListeners() throws NumberFormatException {
         //setup number and decimal listeners
         ActionListener numberButtonListener = e -> {
@@ -135,7 +71,7 @@ public class CalculatorGUI {
         for (JButton button : numberButtons) {
             button.addActionListener(numberButtonListener);
         }
-        //clear button listner
+        //clear button listener
         clearButton.addActionListener(e -> {
             textArea.setText(null);
             firstNumber = 0;
