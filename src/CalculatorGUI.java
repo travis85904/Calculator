@@ -12,13 +12,17 @@ public class CalculatorGUI {
     JFrame frame = new JFrame();
     JTextField textArea = new JTextField();
 
-    JButton clear = new JButton("C");
-    JButton clearEntry = new JButton("CE");
-    JButton equals = new JButton("=");
-    JButton multiply = new JButton("*");
-    JButton add = new JButton("+");
-    JButton subtract = new JButton("-");
-    JButton divide = new JButton("/");
+    JButton clearButton = new JButton("C");
+    JButton clearEntryButton = new JButton("CE");
+    JButton equalsButton = new JButton("=");
+    JButton multiplyButton = new JButton("*");
+    JButton addButton = new JButton("+");
+    JButton subtractButton = new JButton("-");
+    JButton divideButton = new JButton("/");
+    JButton negativeButton = new JButton("+/-");
+    JButton modButton = new JButton("%");
+
+
     JButton decimal = new JButton(".");
     JButton zero = new JButton("0");
     JButton one = new JButton("1");
@@ -53,25 +57,31 @@ public class CalculatorGUI {
 
     public void setupButtons() {
         //Clear button
-        clear.setBounds(100, 140, 50, 50);
+        clearButton.setBounds(100, 140, 50, 50);
 
         //CE button
-        clearEntry.setBounds(40, 140, 50, 50);
+        clearEntryButton.setBounds(40, 140, 50, 50);
 
         //equals button
-        equals.setBounds(220, 380, 50, 50);
+        equalsButton.setBounds(220, 380, 50, 50);
 
         //multiply button
-        multiply.setBounds(220, 200, 50, 50);
+        multiplyButton.setBounds(220, 200, 50, 50);
 
         //add button
-        add.setBounds(220, 320, 50, 50);
+        addButton.setBounds(220, 320, 50, 50);
 
         //subtract button
-        subtract.setBounds(220, 260, 50, 50);
+        subtractButton.setBounds(220, 260, 50, 50);
 
         //divide button
-        divide.setBounds(220, 140, 50, 50);
+        divideButton.setBounds(220, 140, 50, 50);
+
+        //negative button
+        negativeButton.setBounds(40, 380, 50, 50);
+
+        //mod button
+        modButton.setBounds(160, 140, 50, 50);
 
         //decimal button
         decimal.setBounds(160, 380, 50, 50);
@@ -107,7 +117,7 @@ public class CalculatorGUI {
         nine.setBounds(160, 200, 50, 50);
 
         //add the buttons to the panel
-        for (JButton jButton : Arrays.asList(zero, one, two, three, four, five, six, seven, eight, nine, divide, equals, multiply, add, subtract, decimal, clearEntry, clear)) {
+        for (JButton jButton : Arrays.asList(zero, one, two, three, four, five, six, seven, eight, nine, divideButton, equalsButton, multiplyButton, addButton, subtractButton, decimal, clearEntryButton, clearButton, negativeButton, modButton)) {
             frame.add(jButton);
             jButton.setFocusable(false);
         }
@@ -126,13 +136,13 @@ public class CalculatorGUI {
             button.addActionListener(numberButtonListener);
         }
         //clear button listner
-        clear.addActionListener(e -> {
+        clearButton.addActionListener(e -> {
             textArea.setText(null);
             firstNumber = 0;
             secondNumber = 0;
         });
         //clear entry listener
-        clearEntry.addActionListener(e -> textArea.setText(null));
+        clearEntryButton.addActionListener(e -> textArea.setText(null));
 
         //operator button listeners
         ActionListener multiplyButtonListener = e -> {
@@ -155,11 +165,20 @@ public class CalculatorGUI {
             operation = "divide";
             textArea.setText(null);
         };
+        ActionListener modButtonListener = e -> {
+            firstNumber = Double.parseDouble(textArea.getText());
+            operation = "mod";
+            textArea.setText(null);
+        };
+        ActionListener negativeButtonListener = e -> {
+            double number = Double.parseDouble(textArea.getText());
+            String newNumber = Double.toString(calculator.invertValue(number));
+            textArea.setText(newNumber);
+        };
         ActionListener equalsButtonListener = e -> {
             switch (operation) {
-                case "multiply", "add", "subtract", "divide" -> {
+                case "multiply", "add", "subtract", "divide", "mod" -> {
                     secondNumber = Double.parseDouble(textArea.getText());
-
                     switch (operation) {
                         case "multiply" ->
                                 textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
@@ -168,6 +187,7 @@ public class CalculatorGUI {
                                 textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
                         case "divide" ->
                                 textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
+                        case "mod" -> textArea.setText(Double.toString(calculator.modulus(firstNumber, secondNumber)));
                     }
                     operation += "Again";
                 }
@@ -192,11 +212,13 @@ public class CalculatorGUI {
         };
 
         //assign listeners to operator buttons
-        multiply.addActionListener(multiplyButtonListener);
-        add.addActionListener(addButtonListener);
-        subtract.addActionListener(subtractButtonListener);
-        divide.addActionListener(divideButtonListener);
-        equals.addActionListener(equalsButtonListener);
+        multiplyButton.addActionListener(multiplyButtonListener);
+        addButton.addActionListener(addButtonListener);
+        subtractButton.addActionListener(subtractButtonListener);
+        divideButton.addActionListener(divideButtonListener);
+        equalsButton.addActionListener(equalsButtonListener);
+        modButton.addActionListener(modButtonListener);
+        negativeButton.addActionListener(negativeButtonListener);
     }
 
     //key handler for keyboard presses
@@ -205,11 +227,11 @@ public class CalculatorGUI {
         public void keyPressed(KeyEvent e) {
             char c = e.getKeyChar();
             switch (c) {
-                case 43 -> add.doClick();
-                case 45 -> subtract.doClick();
-                case 47 -> divide.doClick();
-                case 42 -> multiply.doClick();
-                case 10 -> equals.doClick();
+                case 43 -> addButton.doClick();
+                case 45 -> subtractButton.doClick();
+                case 47 -> divideButton.doClick();
+                case 42 -> multiplyButton.doClick();
+                case 10 -> equalsButton.doClick();
                 case 48 -> zero.doClick();
                 case 49 -> one.doClick();
                 case 50 -> two.doClick();
