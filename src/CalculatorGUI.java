@@ -35,10 +35,10 @@ public class CalculatorGUI {
 
     public CalculatorGUI() {
         setupGUI();
-       // setupButtons();
         setupButtonListeners();
         textArea.setEditable(false);
     }
+
     public void setupGUI() {
         frame.setTitle("Trav's Cool Calculator");
         frame.add(textArea);
@@ -52,6 +52,7 @@ public class CalculatorGUI {
         textArea.setBounds(50, 20, 200, 50);
         textArea.setFocusable(false);
     }
+
     private JButton createButton(String text, int x, int y) {
         JButton button = new JButton(text);
         button.setBounds(x, y, 50, 50);
@@ -59,6 +60,7 @@ public class CalculatorGUI {
         button.setFocusable(false);
         return button;
     }
+
     public void setupButtonListeners() throws NumberFormatException {
         //setup number and decimal listeners
         ActionListener numberButtonListener = e -> {
@@ -112,39 +114,10 @@ public class CalculatorGUI {
             textArea.setText(newNumber);
         };
         ActionListener equalsButtonListener = e -> {
-            switch (operation) {
-                case "multiply", "add", "subtract", "divide", "mod" -> {
-                    secondNumber = Double.parseDouble(textArea.getText());
-                    switch (operation) {
-                        case "multiply" ->
-                                textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
-                        case "add" -> textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
-                        case "subtract" ->
-                                textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
-                        case "divide" ->
-                                textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
-                        case "mod" -> textArea.setText(Double.toString(calculator.modulus(firstNumber, secondNumber)));
-                    }
-                    operation += "Again";
-                }
-                case "multiplyAgain" -> {
-                    firstNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.multiply(firstNumber, secondNumber)));
-                }
-                case "addAgain" -> {
-                    firstNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.add(firstNumber, secondNumber)));
-                }
-                case "subtractAgain" -> {
-                    firstNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.subtract(firstNumber, secondNumber)));
-                }
-                case "divideAgain" -> {
-                    firstNumber = Double.parseDouble(textArea.getText());
-                    textArea.setText(Double.toString(calculator.divide(firstNumber, secondNumber)));
-                }
-
-            }
+            if (operation.endsWith("Again"))
+                textArea.setText(Double.toString(multipleCalculate()));
+            else
+                textArea.setText(Double.toString(firstCalculate()));
         };
 
         //assign listeners to operator buttons
@@ -155,6 +128,32 @@ public class CalculatorGUI {
         equalsButton.addActionListener(equalsButtonListener);
         modButton.addActionListener(modButtonListener);
         negativeButton.addActionListener(negativeButtonListener);
+    }
+
+    private double firstCalculate() {
+        secondNumber = Double.parseDouble(textArea.getText());
+        double result = 0;
+        switch (operation) {
+            case "multiply" -> result = calculator.multiply(firstNumber, secondNumber);
+            case "add" -> result = calculator.add(firstNumber, secondNumber);
+            case "subtract" -> result = calculator.subtract(firstNumber, secondNumber);
+            case "divide" -> result = calculator.divide(firstNumber, secondNumber);
+            case "mod" -> result = calculator.modulus(firstNumber, secondNumber);
+        }
+        operation += "Again";
+        return result;
+    }
+
+    private double multipleCalculate() {
+        double result = 0;
+        firstNumber = Double.parseDouble(textArea.getText());
+        switch (operation) {
+            case "multiplyAgain" -> result = calculator.multiply(firstNumber, secondNumber);
+            case "addAgain" -> result = calculator.add(firstNumber, secondNumber);
+            case "subtractAgain" -> result = calculator.subtract(firstNumber, secondNumber);
+            case "divideAgain" -> result = calculator.divide(firstNumber, secondNumber);
+        }
+        return result;
     }
 
     //key handler for keyboard presses

@@ -19,10 +19,8 @@ public class Calculator {
         return a / b;
     }
 
-    public int modulus(double a, double b) {
-        int intA = (int) a;
-        int intB = (int) b;
-        return (intA % intB);
+    public double modulus(double a, double b) {
+        return (a % b);
     }
 
     public double invertValue(double a) {
